@@ -17,3 +17,11 @@ jobs:
           run: |
             node -v
             npm -v
+        - name: python Command
+          run: |
+            import platform
+            print
+            (platform.processor())
+          # This step lets user choose specific shell to run commands
+          shell: python
+
