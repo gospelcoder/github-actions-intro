@@ -1,0 +1,17 @@
+name: Actions workflow
+
+on: [push]
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: simple JS Action
+        id: greet
+        # it is used to refer to action defined in another folder or using published actions
+        uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: Faizy
+      # getting output of above action
+      - name: Log Greeting Time
+        run: echo "${{ steps.greet.outputs.time }}"

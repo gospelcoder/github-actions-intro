@@ -25,10 +25,12 @@ jobs:
           shell: python
     run-windows-command:
       runs-on: windows-latest
+      # array of jobs the current job needs to be finished before the run of this one
+      needs: ['run-shell-command']
       steps:
         - name: Directory in powershell
           run: Get-Location
-        - name: Directory in bach
+        - name: Directory in bash
           run: pwd
           # it will throw error if bash not specified
           shell: bash
