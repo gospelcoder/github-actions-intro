@@ -7,7 +7,7 @@ on: [push] # it can be array of events
 
 #Git hosted runner
 jobs: 
-    run-shell-commad:
+    run-shell-command:
       runs-on: ubuntu-latest
       # steps would be array of object and each object defines a single step
       steps:
