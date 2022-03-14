@@ -23,4 +23,13 @@ jobs:
             print(platform.processor())
           # This step lets user choose specific shell to run commands
           shell: python
+    run-windows-command:
+      runs-on: windows-latest
+      steps:
+        - name: Directory in powershell
+          run: Get-Location
+        - name: Directory in bach
+          run: pwd
+          # it will throw error if bash not specified
+          shell: bash
 
