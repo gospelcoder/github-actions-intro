@@ -9,6 +9,8 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
       - name: simple JS Action
         id: greet
         # it is used to refer to action defined in another folder or using published actions
