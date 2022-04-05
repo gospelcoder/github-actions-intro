@@ -1,7 +1,20 @@
 name: Actions workflow
 
 on:
+#  schedule:
+#   - cron: "0/5 * * * *"
  push:
+  branches:
+   - master
+   - 'feature/*' # matches feature/featA, feature/featB, doesn't match feature/feat/a
+   - 'feature/**' # matches feature/feat/c
+   - '!feature/featC' # workflow does not run for feature/featC
+  # tags:
+  #  - v1.*
+  # paths:
+  #  - '**.js' # runs only javascript files
+  # path-ignore:
+  #  - '**.js'
  pull_request:
   types: [closed, assigned, reopened, opened]
 

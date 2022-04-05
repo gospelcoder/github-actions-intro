@@ -5,6 +5,9 @@ name: Shell Commands
 
 on: [push] # it can be array of events
 
+# on: 
+#  schedule:
+#   - cron: "0/5 * * * *"
 #Git hosted runner
 jobs: 
     run-shell-command:
