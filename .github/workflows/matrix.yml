@@ -10,10 +10,24 @@ jobs:
     # using strategy
     strategy:
       matrix:
+       os: [macos-latest, ubuntu-latest, windows-latest]
        node_version: [6,8,10]
+       # is_ubuntu_8 will only exist for the below config
+       include:
+         - os: ubuntu-latest
+           node-version: 8
+           is_ubuntu_8: "true"
+       # job will not run for the config defined in exclude
+       exclude:
+         - os: ubuntu-latest
+           node-version: 6
+         - os: macos-latest
+           node-version: 8
       # max-parallel: 2 # used to limit max jobs you want to run the matrix in paralelle
       # fail-fast: true
     runs-on: ubuntu-latest
+    env:
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}
     steps: 
       - name: Log node version
         run: node -v 
@@ -22,4 +36,6 @@ jobs:
           # node-version: 6
           node-version: ${{ matrix.node_version }}
       - name: Log node new version 
-        run: node -v 
+        run: |
+          node -v 
+          echo $IS_UBUNTU_8
