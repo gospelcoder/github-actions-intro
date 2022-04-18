@@ -12,6 +12,8 @@ on: [push] # it can be array of events
 jobs: 
     run-shell-command:
       runs-on: ubuntu-latest
+      timeout-minutes: 360 # by default is 360 minutes you can increase it or decrease it
+      continue-on-error: true # this make sure all steps will run even if this step fails
       # steps would be array of object and each object defines a single step
       steps:
         - name: echo a string

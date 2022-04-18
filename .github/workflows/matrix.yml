@@ -1,0 +1,25 @@
+name: matirx workflow
+
+on: [push]
+
+# job will run for number of times depending on values present in matrix
+# if we define one more parameter with 3 values, then job will run for 
+# every node version and every parameter, which means total 9 times it will run
+jobs:
+  node-version:
+    # using strategy
+    strategy:
+      matrix:
+       node_version: [6,8,10]
+      # max-parallel: 2 # used to limit max jobs you want to run the matrix in paralelle
+      # fail-fast: true
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Log node version
+        run: node -v 
+      - uses: actions/setup-node@v1
+        with:
+          # node-version: 6
+          node-version: ${{ matrix.node_version }}
+      - name: Log node new version 
+        run: node -v 
