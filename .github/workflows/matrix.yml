@@ -20,9 +20,9 @@ jobs:
        # job will not run for the config defined in exclude
        exclude:
          - os: ubuntu-latest
-           node-version: 6
+           node_version: 6
          - os: macos-latest
-           node-version: 8
+           node_version: 8
       # max-parallel: 2 # used to limit max jobs you want to run the matrix in paralelle
       # fail-fast: true
     runs-on: ubuntu-latest
