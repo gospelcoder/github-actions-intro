@@ -1,0 +1,40 @@
+name: Multiple Container
+on: push
+
+
+jobs: 
+  docker-steps:
+    runs-on: ubuntu-latest
+    container:
+      image: node:10.18.0-jessie
+    steps:
+      - name: log node version
+        run: node -v 
+      - name: Step with docker
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          # unlike docker file it will have just path to executable
+          entrypoint: /bin/echo
+          # unlike docker file it can only have single arg
+          args: hello world
+      - name: Log node version
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: /usr/local/bin/node
+          args: -v
+  multiple_containers:
+    runs-on: ubuntu-latest
+    services: 
+      app:
+        image: alialaa17/node-api
+        ports: 
+          - 3001:3000
+      mongo:
+        image: mongo
+        ports: 
+          - 27017:27017
+    steps:
+      - name: Post a user
+        run: "curl -X POST http://localhost:3001/api/user -H 'Content-Type: application/json' -d '{\"username\":\"hello\",\"address\":\"dwed\"}'"
+      - name: Get users
+        run: curl http://localhost:3001/api/users  

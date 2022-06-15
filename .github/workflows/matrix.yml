@@ -1,0 +1,41 @@
+name: matirx workflow
+
+on: [pull_request]
+
+# job will run for number of times depending on values present in matrix
+# if we define one more parameter with 3 values, then job will run for 
+# every node version and every parameter, which means total 9 times it will run
+jobs:
+  node-version:
+    # using strategy
+    strategy:
+      matrix:
+       os: [macos-latest, ubuntu-latest, windows-latest]
+       node_version: [6,8,10]
+       # is_ubuntu_8 will only exist for the below config
+       include:
+         - os: ubuntu-latest
+           node-version: 8
+           is_ubuntu_8: "true"
+       # job will not run for the config defined in exclude
+       exclude:
+         - os: ubuntu-latest
+           node_version: 6
+         - os: macos-latest
+           node_version: 8
+      # max-parallel: 2 # used to limit max jobs you want to run the matrix in paralelle
+      # fail-fast: true
+    runs-on: ubuntu-latest
+    env:
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}
+    steps: 
+      - name: Log node version
+        run: node -v 
+      - uses: actions/setup-node@v1
+        with:
+          # node-version: 6
+          node-version: ${{ matrix.node_version }}
+      - name: Log node new version 
+        run: |
+          node -v 
+          echo $IS_UBUNTU_8

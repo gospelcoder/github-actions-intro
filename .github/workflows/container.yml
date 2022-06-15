@@ -1,0 +1,20 @@
+name: Container
+on: push
+
+jobs:
+  node-docker:
+    runs-on: ubuntu-latest
+    #This can be image from docker hub
+    # how to put: dockerhub username and then image
+    container: #node:13.5.0-alpine3.10 #this may show error in vs code because it expects to be an object not string
+    #other way to pass as an object
+      image: node:13.5.0-alpine3.10
+      #env: pass env variables
+      #ports: ports to be exposed in a container
+      #volumes: if there is any volume mapping
+      #options: --cpus 1 --host etct
+    steps:
+      - name: Log node version
+        run: |
+          node -v 
+          cat /etc/os-release

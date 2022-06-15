@@ -1,11 +1,29 @@
 name: Actions workflow
 
-on: [push]
+on:
+#  schedule:
+#   - cron: "0/5 * * * *"
+ push:
+  branches:
+   - master
+   - 'feature/*' # matches feature/featA, feature/featB, doesn't match feature/feat/a
+   - 'feature/**' # matches feature/feat/c
+   - '!feature/featC' # workflow does not run for feature/featC
+  # tags:
+  #  - v1.*
+  # paths:
+  #  - '**.js' # runs only javascript files
+  # path-ignore:
+  #  - '**.js'
+ pull_request:
+  types: [closed, assigned, reopened, opened]
 
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
       - name: simple JS Action
         id: greet
         # it is used to refer to action defined in another folder or using published actions
